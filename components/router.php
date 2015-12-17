@@ -18,22 +18,22 @@ class Router
 	public function run() {
 		$uri = $this->get_uri();
 
+		foreach ($this->routes as $uri_pattern => $path) {
+			if ($uri_pattern == $uri) {
 
-		$controller_name = ucfirst($uri . '_controller');
-		$controller_file = ROOT . '/controller/' . $controller_name . '.php';
+				$segments = explode('/', $uri_pattern);
+				$controller_name = ucfirst($segments[0] . '_controller');
+				$controller_file = ROOT . '/controller/' . $controller_name . '.php';
+				$action_name = 'action_' . $path;
 
-		if (file_exists($controller_file)) {
-			include_once($controller_file);
-			$controller_object = new $controller_name;
-
-			foreach ($this->routes as $key) {
-				if ($uri == $key) {
-					$result = $controller_object->$key();
+				if (file_exists($controller_file)) {
+					include_once($controller_file);
+					$controller_object = new $controller_name;
+					$result = $controller_object->$action_name();
+					if ($result != null) {
+						break;
+					}
 				}
-			}
-
-			if ($result != null) {
-				break;
 			}
 		}
 	}

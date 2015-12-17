@@ -1,8 +1,8 @@
 <?php 
 
 return array(
-	'new',
-	'add',
-	'analys',
-	'edit'
+	'add' => 'add',
+	'add/index' => 'index',
+	'analys' => 'analys',
+	'edit' => 'edit'
 );

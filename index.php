@@ -9,3 +9,4 @@ require_once(ROOT . '/components/db.php');
 
 $router = new Router();
 $router->run();
+
