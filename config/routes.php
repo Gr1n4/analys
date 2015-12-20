@@ -1,8 +1,9 @@
 <?php 
 
 return array(
-	'add' => 'add',
-	'add/index' => 'index',
+	'' => 'show/index',
+	'add' => 'add/add',
+	'add/index' => 'add/index',
 	'analys' => 'analys',
 	'edit' => 'edit'
 );

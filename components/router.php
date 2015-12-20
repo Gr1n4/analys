@@ -21,10 +21,10 @@ class Router
 		foreach ($this->routes as $uri_pattern => $path) {
 			if ($uri_pattern == $uri) {
 
-				$segments = explode('/', $uri_pattern);
+				$segments = explode('/', $path);
 				$controller_name = ucfirst($segments[0] . '_controller');
 				$controller_file = ROOT . '/controller/' . $controller_name . '.php';
-				$action_name = 'action_' . $path;
+				$action_name = 'action_' . $segments[1];
 
 				if (file_exists($controller_file)) {
 					include_once($controller_file);
