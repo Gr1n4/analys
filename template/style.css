@@ -1,7 +1,8 @@
-body {
-	background-color: black;
-}
-
 input {
 	display: block;
+}
+
+a {
+	text-decoration: none;
+	color: black;
 }
