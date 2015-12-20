@@ -3,6 +3,6 @@
 return array(
 	'host' => 'localhost',
 	'dbname' => 'analys',
-	'user' => 'analys',
+	'user' => 'root',
 	'password' => '1'
 );

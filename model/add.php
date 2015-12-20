@@ -12,9 +12,9 @@ class Add_model {
 		$db_obligation = $_POST['obligation'];
 		$db_date = $_POST['date'];
 		$db->query("CREATE TABLE IF NOT EXISTS $db_name LIKE main");
-		$db->query('INSERT INTO `$db_name` (surname, revenue, loan, debt, 
+		$db->query("INSERT INTO $db_name (surname, revenue, loan, debt, 
 			founder, obligation, date)
-			VALUES (""$db_name", "$db_revenue", "$db_loan", "$db_debt", "$db_founder", 
-			"$db_obligation", "$db_date")');
+			VALUES ('$db_name', '$db_revenue', '$db_loan', '$db_debt', '$db_founder', 
+			'$db_obligation', '$db_date')");
 	}
 }
