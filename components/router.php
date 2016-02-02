@@ -3,9 +3,10 @@
 class Router
 {
 	private $routes;
+	private $i;
 
 	public function __construct() {
-		$routes_path = ROOT . '/config/routes.php';
+		$routes_path = dir . '/config/routes.php';
 		$this->routes = include($routes_path);
 	}
 
@@ -18,13 +19,18 @@ class Router
 	public function run() {
 		$uri = $this->get_uri();
 
-		foreach ($this->routes as $uri_pattern => $path) {
-			if ($uri_pattern == $uri) {
+		$this->i = 0;
 
-				$segments = explode('/', $path);
-				$controller_name = ucfirst($segments[0] . '_controller');
-				$controller_file = ROOT . '/controller/' . $controller_name . '.php';
-				$action_name = 'action_' . $segments[1];
+		foreach ($this->routes as $uri_pattern => $path) {
+			$this->i++;
+			if (preg_match("~$uri_pattern~", $uri)) {
+
+				$param_rout = preg_replace("~$uri_pattern~", $path, $uri);
+				$segments = explode('/', $param_rout);
+
+				$controller_name = ucfirst(array_shift($segments) . '_controller');
+				$controller_file = dir . '/controller/' . $controller_name . '.php';
+				$action_name = 'action_' . array_shift($segments);
 
 				if (file_exists($controller_file)) {
 					include_once($controller_file);
@@ -34,6 +40,8 @@ class Router
 						break;
 					}
 				}
+			} elseif (count($this->routes) == $this->i) {
+				header('Location: /');
 			}
 		}
 	}

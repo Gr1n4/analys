@@ -1,9 +1,11 @@
 <?php 
 
 return array(
-	'' => 'show/index',
-	'add' => 'add/add',
-	'add/index' => 'add/index',
-	'analys' => 'analys',
-	'edit' => 'edit'
+	'^add$' => 'add/add',
+	'^analys$' => 'analys',
+	'^edit$' => 'edit',
+  '^register$' => 'user/register',
+  '^login$' => 'user/login',
+  '^logout$' => 'user/logout',
+  '^$' => 'index/index'
 );
