@@ -2,13 +2,13 @@
 
 class User {
 
-  private static function sql_inner($login, $sql) {
+  public static function sql_inner($login, $sql) {
     $db = Db::get_connection();
     $db->exec('SET CHARACTER SET utf8');
 
     $result = $db->prepare($sql);
     $result->bindParam(':login', $login, PDO::PARAM_INT);
-    if (func_num_args() > 1) {
+    if (func_num_args() > 2) {
       $result->bindParam(':password', func_get_arg(2), PDO::PARAM_INT);
     }
     if (func_num_args() > 3) {
@@ -34,7 +34,7 @@ class User {
   public static function register($login, $password, $first_name, $last_name) {
 
     $sql = "SELECT * FROM users WHERE login = :login";
-    $result = User::sql_inner($login, $sql, $password);
+    $result = User::sql_inner($login, $sql);
 
     $user = $result->fetch();
     if ($user) {

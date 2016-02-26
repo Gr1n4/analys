@@ -7,12 +7,12 @@ class User_controller {
   public function action_login() {
     $login = '';
     $password = '';
+    $errors = false;
 
     if (isset($_POST['log_in'])) {
       $login = $_POST['login'];
       $password = $_POST['password'];
 
-      $errors = false;
       $user_login = User::login($login, $password);
 
       if ($user_login == false) {
@@ -32,14 +32,13 @@ class User_controller {
     $password = '';
     $first_name = '';
     $last_name = '';
+    $errors = false;
 
     if (isset($_POST['check_out'])) {
       $login = $_POST['login'];
       $password = $_POST['password'];
       $first_name = $_POST['first_name'];
       $last_name = $_POST['last_name'];
-
-      $errors = false;
 
       $result = User::register($login, $password, $first_name, $last_name);
       if ($result) {
@@ -55,8 +54,8 @@ class User_controller {
   }
 
   public function action_logout() {
-    
-
+    unset($_SESSION['user']);
+    header('Location: /');
     return true;
   }
 }
