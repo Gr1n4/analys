@@ -13,12 +13,13 @@ class User_controller {
       $login = $_POST['login'];
       $password = $_POST['password'];
 
-      $user_login = User::login($login, $password);
+      $user = User::login($login, $password);
 
-      if ($user_login == false) {
+      if ($user == false) {
         $errors[] = "Неверно указан логин или пароль";
       } else {
-        $_SESSION['user'] = $user_login;
+        $_SESSION['user'] = $user['login'];
+        $_SESSION['id'] = $user['id'];
         header('Location: /');
       }
     }

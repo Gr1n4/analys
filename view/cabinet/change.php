@@ -3,7 +3,9 @@
 <body>
   <?php if ($errors) {
     echo "<p>$errors[0]</p>";
-  } ?>
+  }
+var_dump($result);
+?>
   <form action="" method="post">
     Логин: <input type="text" name="login" value="<?php echo $form_data['login']; ?>">
     Имя: <input type="text" name="first_name" value="<?php echo $form_data['first_name']; ?>">
@@ -13,4 +15,4 @@
   </form>
 </body>
 
-<?php include_once dir . '/view/layout/footer.php'; ?></body>
+<?php include_once dir . '/view/layout/footer.php'; ?>

@@ -22,6 +22,7 @@ class Cabinet_controller {
       $first_name = '';
       $last_name = '';
       $errors = false;
+      $result = 'lol';
 
       if (isset($_POST['change'])) {
         $login = $_POST['login'];
@@ -29,9 +30,11 @@ class Cabinet_controller {
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
 
-        $result = User::register($login, $password, $first_name, $last_name);
+        $result = Cabinet::change($login, $password, $first_name, $last_name);
+        var_dump($result);
         if ($result) {
           $errors[] = "Замена данных успешно произведена.";
+          $_SESSION['user'] = $login;
           header('Location: /cabinet/change');
         } else {
           $errors[] = "Указанный логин уже существует.";

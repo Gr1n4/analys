@@ -27,7 +27,7 @@ class User {
 
     $user = $result->fetch();
     if ($user) {
-      return $user['login'];
+      return $user;
     } else return false;
   }
 
