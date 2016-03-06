@@ -22,7 +22,6 @@ class Cabinet_controller {
       $first_name = '';
       $last_name = '';
       $errors = false;
-      $result = 'lol';
 
       if (isset($_POST['change'])) {
         $login = $_POST['login'];
@@ -31,7 +30,6 @@ class Cabinet_controller {
         $last_name = $_POST['last_name'];
 
         $result = Cabinet::change($login, $password, $first_name, $last_name);
-        var_dump($result);
         if ($result) {
           $errors[] = "Замена данных успешно произведена.";
           $_SESSION['user'] = $login;

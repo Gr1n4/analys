@@ -4,7 +4,6 @@
   <?php if ($errors) {
     echo "<p>$errors[0]</p>";
   }
-var_dump($result);
 ?>
   <form action="" method="post">
     Логин: <input type="text" name="login" value="<?php echo $form_data['login']; ?>">
