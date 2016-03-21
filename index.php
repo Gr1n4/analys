@@ -12,4 +12,3 @@ require_once(dir . '/components/db.php');
 
 $router = new Router();
 $router->run();
-
