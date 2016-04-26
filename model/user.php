@@ -25,6 +25,7 @@ class User {
     $sql = "SELECT * FROM users WHERE login = :login and password = :password";
     $result = User::sql_inner($login, $sql, $password);
 
+    $_SESSION['result']=$result;
     $user = $result->fetch();
     if ($user) {
       return $user;
