@@ -5,15 +5,17 @@ require_once dir . '/model/user.php';
 class User_controller {
   
   public function action_login() {
-    $login = '';
-    $password = '';
+    // $login = '';
+    // $password = '';
+    $forms = [];
     $errors = false;
 
     if (isset($_POST['log_in'])) {
-      $login = $_POST['login'];
-      $password = $_POST['password'];
+      // $login = $_POST['login'];
+      // $password = $_POST['password'];
+      $forms = $_POST;
 
-      $user = User::login($login, $password);
+      $user = User::login($forms);
 
       if ($user == false) {
         $errors[] = "Неверно указан логин или пароль";
