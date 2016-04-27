@@ -7,6 +7,7 @@ class User_controller {
   public function action_login() {
     $forms = [];
     $errors = false;
+    var_dump($_SESSION['forms']);
 
     if (isset($_POST['log_in'])) {
       $forms = $_POST;

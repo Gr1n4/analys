@@ -12,12 +12,14 @@ class User {
     switch ($counter) {
       case 2:
         $result->bindParam(':login', $forms['login'], PDO::PARAM_INT);
+        break;
         
       case 3:
         $result->bindParam(':login', $forms['login'], PDO::PARAM_INT);
         $result->bindParam(':password', $forms['password'], PDO::PARAM_INT);
+        break;
       
-      case 7:
+      case 8:
         $result->bindParam(':login', $forms['login'], PDO::PARAM_INT);
         $result->bindParam(':password', $forms['password'], PDO::PARAM_INT);
         $result->bindParam(':first_name', $forms['first_name'], PDO::PARAM_INT);
@@ -25,6 +27,7 @@ class User {
         $result->bindParam(':surname', $forms['surname'], PDO::PARAM_INT);
         $result->bindParam(':index', $forms['index'], PDO::PARAM_INT);
         $result->bindParam(':address', $forms['address'], PDO::PARAM_INT);
+        break;
       }
 
       $result->execute();
@@ -60,7 +63,7 @@ class User {
               VALUES (:login, :password, :first_name, :last_name, :surname, :index, :address)";
       array_shift($forms);
       array_unshift($forms, $sql);
-      print_r($forms);
+      $_SESSION['forms'] = $forms;
       $result = User::sql_inner($forms);
       return $result;
     }
