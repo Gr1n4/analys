@@ -5,15 +5,14 @@ require_once dir . '/model/user.php';
 class User_controller {
   
   public function action_login() {
-    $login = '';
-    $password = '';
+    $forms = [];
     $errors = false;
+    var_dump($_SESSION['forms']);
 
     if (isset($_POST['log_in'])) {
-      $login = $_POST['login'];
-      $password = $_POST['password'];
+      $forms = $_POST;
 
-      $user = User::login($login, $password);
+      $user = User::login($forms);
 
       if ($user == false) {
         $errors[] = "Неверно указан логин или пароль";
@@ -29,19 +28,15 @@ class User_controller {
   }
 
   public function action_register() {
-    $login = '';
-    $password = '';
-    $first_name = '';
-    $last_name = '';
+
+    $forms = [];
     $errors = false;
 
     if (isset($_POST['check_out'])) {
-      $login = $_POST['login'];
-      $password = $_POST['password'];
-      $first_name = $_POST['first_name'];
-      $last_name = $_POST['last_name'];
+      $forms = $_POST;
 
-      $result = User::register($login, $password, $first_name, $last_name);
+      $result = User::register($forms);
+      print_r($result);
       if ($result) {
         $errors[] = "Регистрация успешно завершена";
         header('Location: /login');

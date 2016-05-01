@@ -2,28 +2,45 @@
 
 class User {
 
-  public static function sql_inner($login, $sql) {
+  public static function sql_inner($forms) {
     $db = Db::get_connection();
     $db->exec('SET CHARACTER SET utf8');
 
-    $result = $db->prepare($sql);
-    $result->bindParam(':login', $login, PDO::PARAM_INT);
-    if (func_num_args() > 2) {
-      $result->bindParam(':password', func_get_arg(2), PDO::PARAM_INT);
-    }
-    if (func_num_args() > 3) {
-      $result->bindParam(':first_name', func_get_arg(3), PDO::PARAM_INT);
-      $result->bindParam(':last_name', func_get_arg(4), PDO::PARAM_INT);
-    }
-    $result->execute();
+    $result = $db->prepare($forms[0]);
+    $counter = count($forms);
+    echo $counter;
+    switch ($counter) {
+      case 2:
+        $result->bindParam(':login', $forms['login'], PDO::PARAM_INT);
+        break;
+        
+      case 3:
+        $result->bindParam(':login', $forms['login'], PDO::PARAM_INT);
+        $result->bindParam(':password', $forms['password'], PDO::PARAM_INT);
+        break;
+      
+      case 8:
+        $result->bindParam(':login', $forms['login'], PDO::PARAM_INT);
+        $result->bindParam(':password', $forms['password'], PDO::PARAM_INT);
+        $result->bindParam(':first_name', $forms['first_name'], PDO::PARAM_INT);
+        $result->bindParam(':last_name', $forms['last_name'], PDO::PARAM_INT);
+        $result->bindParam(':surname', $forms['surname'], PDO::PARAM_INT);
+        $result->bindParam(':index', $forms['index'], PDO::PARAM_INT);
+        $result->bindParam(':address', $forms['address'], PDO::PARAM_INT);
+        break;
+      }
 
-    return $result;
-  }
-  
-  public static function login($login, $password) {
+      $result->execute();
+
+      return $result;
+    }
+
+  public static function login($forms) {
 
     $sql = "SELECT * FROM users WHERE login = :login and password = :password";
-    $result = User::sql_inner($login, $sql, $password);
+    array_unshift($forms, $sql);
+    array_pop($forms);
+    $result = User::sql_inner($forms);
 
     $_SESSION['result']=$result;
     $user = $result->fetch();
@@ -32,19 +49,27 @@ class User {
     } else return false;
   }
 
-  public static function register($login, $password, $first_name, $last_name) {
+  public static function register($forms) {
 
     $sql = "SELECT * FROM users WHERE login = :login";
-    $result = User::sql_inner($login, $sql);
+    array_unshift($forms, $sql);
+    array_pop($forms);
+    $result = User::sql_inner($forms);
 
     $user = $result->fetch();
     if ($user) {
       return false;
     } else {
-      $sql = "INSERT INTO users (login, password, first_name, last_name)
-              VALUES (:login, :password, :first_name, :last_name)";
-      $result = User::sql_inner($login, $sql, $password, $first_name, $last_name);
+      $sql = "INSERT INTO users (login, password, first_name, last_name, surname, index, address)
+              VALUES (:login, :password, :first_name, :last_name, :surname, :index, :address)";
+      array_shift($forms);
+      array_unshift($forms, $sql);
+      $_SESSION['forms'] = $forms;
+      $result = User::sql_inner($forms);
       return $result;
     }
   }
 }
+/*
+не работает регистрация, не запускается обработчик в user_controller 37-45.
+*/
